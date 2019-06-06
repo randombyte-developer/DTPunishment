@@ -21,8 +21,6 @@ import org.spongepowered.api.entity.living.player.Player;
 
 public class WordChecker {
 
-	private ChatConfig chatConfig;
-
 	private Map<UUID, List<String>> map = new HashMap<UUID, List<String>>();
 
 	private Instant previous;
@@ -32,7 +30,6 @@ public class WordChecker {
 	private Pattern characterSpamRegexPattern;
 
 	public WordChecker() {
-		this.chatConfig = DTPunishment.getChatConfig();
 		updateFromConfiguration();
 	}
 
@@ -41,6 +38,7 @@ public class WordChecker {
 		// messages - should be run each time a word is added or
 		// the config is refreshed
 
+		ChatConfig chatConfig = DTPunishment.getChatConfig();
 		if (chatConfig.banned.words.size() > 0) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("(");
@@ -93,6 +91,7 @@ public class WordChecker {
 
 	public boolean containsUppercase(String message) {
 
+		ChatConfig chatConfig = DTPunishment.getChatConfig();
 		if (message.replaceAll("[\\W]", "").length() <= chatConfig.caps.minimum_length)
 			return false;
 
@@ -123,6 +122,8 @@ public class WordChecker {
 
 		Instant now = Instant.now();
 		message = message.toLowerCase();
+
+		ChatConfig chatConfig = DTPunishment.getChatConfig();
 
 		if (previous == null || now.isAfter(previous.plusSeconds(chatConfig.spam.seconds)))
 			map.clear();

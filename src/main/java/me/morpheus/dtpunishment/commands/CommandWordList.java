@@ -21,15 +21,13 @@ import me.morpheus.dtpunishment.utils.Util;
 
 public class CommandWordList implements CommandExecutor {
 
-	private ChatConfig chatConfig = DTPunishment.getChatConfig();
-
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 
 		PaginationList.Builder builder = PaginationList.builder();
 		List<Text> contents = new ArrayList<Text>();
 
-		for (String s : chatConfig.banned.words.stream().sorted().collect(Collectors.toList())) {
+		for (String s : DTPunishment.getChatConfig().banned.words.stream().sorted().collect(Collectors.toList())) {
 			contents.add(Text.of(TextColors.RED, s));
 		}
 

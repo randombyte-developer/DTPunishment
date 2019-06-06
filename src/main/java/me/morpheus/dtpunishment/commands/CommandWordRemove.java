@@ -30,14 +30,11 @@ import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 
 public class CommandWordRemove implements CommandExecutor {
 
-	private ChatConfig chatConfig;
-
 	private File configDir;
 
 	private WordChecker wordChecker;
 
 	public CommandWordRemove() {
-		this.chatConfig = DTPunishment.getChatConfig();
 		this.configDir = DTPunishment.getInstance().configDir;
 		this.wordChecker = DTPunishment.getWordChecker();
 	}
@@ -46,7 +43,7 @@ public class CommandWordRemove implements CommandExecutor {
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 
 		Collection<String> words = args.<String>getAll("word");
-		List<String> actual = chatConfig.banned.words;
+		List<String> actual = DTPunishment.getChatConfig().banned.words;
 
 		if (words.size() == 0) {
 			src.sendMessage(Util.withWatermark(TextColors.AQUA, "Please specify one or more words to remove"));

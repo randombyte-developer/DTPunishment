@@ -35,13 +35,10 @@ public class CommandManager {
 
 	private Logger logger;
 
-	private MainConfig mainConfig;
-
 	public CommandManager() {
 		this.mappedCommands = new ArrayList<CommandMapping>();
 		this.logger = DTPunishment.getInstance().logger;
 		this.plugin = DTPunishment.getInstance();
-		this.mainConfig = DTPunishment.getConfig();
 		this.spongeCommandManager = Sponge.getCommandManager();
 	}
 
@@ -86,7 +83,7 @@ public class CommandManager {
 				.description(Text.of("Show the Banpoints help menu")).arguments(GenericArguments.none())
 				.child(showBanpoints, "show").child(addBanpoints, "add").child(removeBanpoints, "remove").build();
 
-		tryRegisterCommand(banpoints, mainConfig.aliases.banpoints);
+		tryRegisterCommand(banpoints, DTPunishment.getConfig().aliases.banpoints);
 	}
 
 	private void registerMutepointsCommands() {
@@ -114,7 +111,7 @@ public class CommandManager {
 		builder.child(removeMutepoints, "remove");
 		builder.child(showMutepoints, "show");
 
-		tryRegisterCommand(builder.build(), mainConfig.aliases.mutepoints);
+		tryRegisterCommand(builder.build(), DTPunishment.getConfig().aliases.mutepoints);
 	}
 
 	private void registerAdminCommands() {
@@ -163,7 +160,7 @@ public class CommandManager {
 		builder.child(unmute, "unmute");
 		builder.child(playerInfo, "playerinfo", "pinfo");
 
-		tryRegisterCommand(builder.build(), mainConfig.aliases.admin);
+		tryRegisterCommand(builder.build(), DTPunishment.getConfig().aliases.admin);
 	}
 
 	private void unregisterCommands() {

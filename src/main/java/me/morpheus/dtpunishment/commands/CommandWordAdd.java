@@ -30,8 +30,6 @@ import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 
 public class CommandWordAdd implements CommandExecutor {
 
-	private ChatConfig chatConfig = DTPunishment.getChatConfig();
-
 	private File configDir = DTPunishment.getInstance().configDir;
 
 	private WordChecker wordChecker = DTPunishment.getWordChecker();
@@ -40,7 +38,7 @@ public class CommandWordAdd implements CommandExecutor {
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
 
 		Collection<String> words = args.<String>getAll("word");
-		List<String> actual = chatConfig.banned.words;
+		List<String> actual = DTPunishment.getChatConfig().banned.words;
 
 		if (words.size() == 0) {
 			src.sendMessage(Util.withWatermark(TextColors.AQUA, "Please specify one or more words to add"));

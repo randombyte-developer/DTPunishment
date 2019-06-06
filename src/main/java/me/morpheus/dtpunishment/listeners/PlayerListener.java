@@ -35,8 +35,6 @@ public class PlayerListener {
 
 	private WordChecker wordChecker = DTPunishment.getWordChecker();
 
-	private ChatConfig chatConfig = DTPunishment.getChatConfig();
-
 	private ChatOffenceData chatOffenceData = DTPunishment.getOffenceData();
 
 	@Listener
@@ -120,6 +118,8 @@ public class PlayerListener {
 			}
 		}
 
+		ChatConfig chatConfig = DTPunishment.getChatConfig();
+
 		if (wordChecker.isSpam(message, uuid)) {
 			int points = chatConfig.spam.mutepoints;
 			mutePointsIncurred += points;
@@ -190,9 +190,9 @@ public class PlayerListener {
 			chatOffenceData.trackLastOffence(player.getUniqueId(), message, "banned words", points);
 
 			boolean cancel = false;
-			if (DTPunishment.getChatConfig().banned.replacer.containsKey(bannedWord)) {
-                event.setMessage(TextSerializers.FORMATTING_CODE.deserialize(TextSerializers.FORMATTING_CODE.serialize(event.getMessage()).replace(bannedWord, DTPunishment.getChatConfig().banned.replacer.get(bannedWord))));
-            } else if (DTPunishment.getChatConfig().banned.starBadWords) {
+			if (chatConfig.banned.replacer.containsKey(bannedWord)) {
+                event.setMessage(TextSerializers.FORMATTING_CODE.deserialize(TextSerializers.FORMATTING_CODE.serialize(event.getMessage()).replace(bannedWord, chatConfig.banned.replacer.get(bannedWord))));
+            } else if (chatConfig.banned.starBadWords) {
                 event.setMessage(TextSerializers.FORMATTING_CODE.deserialize(TextSerializers.FORMATTING_CODE.serialize(event.getMessage()).replace(bannedWord, "****")));
             } else {
 			    event.setCancelled(true);
